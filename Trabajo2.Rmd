@@ -66,8 +66,10 @@ Se debe contextualizar la base de datos, explicando a qué se refiere y describi
 
 Se debe seleccionar una o más variables que se consideren de mayor relevancia dentro de la base de datos. Luego, plantear un objetivo específico para el análisis de estas variables y realizar un análisis descriptivo detallado.
 
-3.  **Identificación de Covariables**\par
-\vspace{0.1cm}
+3.  **Identificación de Covariables**
+
+    \par
+    \vspace{0.1cm}
 
 Se debe identificar un conjunto de covariables o variables explicativas que puedan tener una relación con las variables seleccionadas en el punto anterior (item 2). Estas covariables serán importantes para el análisis posterior.
 
@@ -95,8 +97,6 @@ El sector agrícola es un componente esencial de la economía colombiana, y el r
 
 La base de datos consta de **Número de filas**: `r nrow(datos)` y **Número de columnas**: `r ncol(datos)`, lo que implica que contiene una cantidad significativa de registros (uno por cada combinación de región y cultivo) a lo largo de los años estudiados. Esto ofrece un panorama muy detallado de cómo ha evolucionado el rendimiento de los cultivos en distintas regiones del país. La cantidad de variables (columnas) presentes en la base de datos también es considerable, lo que nos permite realizar análisis multifacéticos, considerando no solo los rendimientos, sino también factores relacionados, como la región geográfica, el tipo de cultivo, las variaciones estacionales, y más.
 
-
-
 ```{r}
 # Extraer nombres de variables
 variables <- names(datos)
@@ -120,34 +120,54 @@ kable(variables_3columnas,
 
 ```
 
-La Tabla \ref{tabla1} detalla las variables que integran la base de datos. A continuación se describe cada una de ellas: 
+La Tabla \ref{tabla1} detalla las variables que integran la base de datos. A continuación se describe cada una de ellas:
 
-**Variables Geográficas:**\par
+**Variables Geográficas:**
+
+\par
 \vspace{0.1cm}
 
--   **COD.DEP**: Código único del departamento. Sirve para identificar la ubicación geográfica a nivel departamental.\par
-\vspace{0.1cm}
--   **DEPARTAMENTO**: Nombre del departamento en el cual se encuentra la información sobre el cultivo.\par
-\vspace{0.1cm}
+-   **COD.DEP**: Código único del departamento. Sirve para identificar la ubicación geográfica a nivel departamental.
+
+    \par
+    \vspace{0.1cm}
+
+-   **DEPARTAMENTO**: Nombre del departamento en el cual se encuentra la información sobre el cultivo.
+
+    \par
+    \vspace{0.1cm}
+
 -   **COD.MUN**: Código único del municipio dentro del departamento.
 
-**Variables de Cultivo:**\par
+**Variables de Cultivo:**
+
+\par
 \vspace{0.1cm}
 
--   **MUNICIPIO**: Nombre del municipio en el cual se mide el rendimiento de los cultivos.\par
-\vspace{0.1cm}
+-   **MUNICIPIO**: Nombre del municipio en el cual se mide el rendimiento de los cultivos.
 
--   **GRUPO DE CULTIVO**: Clasificación general del cultivo (por ejemplo, cereales, leguminosas, tubérculos, etc.).\par
-\vspace{0.1cm}
+    \par
+    \vspace{0.1cm}
 
--   **SUBGRUPO DE CULTIVO**: Subcategoría dentro del grupo de cultivo, permitiendo un análisis más específico (por ejemplo, arroz dentro de cereales).\par
-\vspace{0.1cm}
+-   **GRUPO DE CULTIVO**: Clasificación general del cultivo (por ejemplo, cereales, leguminosas, tubérculos, etc.).
 
--   **CULTIVO**: Nombre del cultivo específico, como maíz, café, caña de azúcar, etc.\par
-\vspace{0.1cm}
+    \par
+    \vspace{0.1cm}
 
--   **DESAGRADACION REGIONAL Y/O SISTEMA PRODUCTIVO**: Información relacionada con la región geográfica y el sistema productivo utilizado en el área de cultivo.\par
-\vspace{0.1cm}
+-   **SUBGRUPO DE CULTIVO**: Subcategoría dentro del grupo de cultivo, permitiendo un análisis más específico (por ejemplo, arroz dentro de cereales).
+
+    \par
+    \vspace{0.1cm}
+
+-   **CULTIVO**: Nombre del cultivo específico, como maíz, café, caña de azúcar, etc.
+
+    \par
+    \vspace{0.1cm}
+
+-   **DESAGRADACION REGIONAL Y/O SISTEMA PRODUCTIVO**: Información relacionada con la región geográfica y el sistema productivo utilizado en el área de cultivo.
+
+    \par
+    \vspace{0.1cm}
 
 **Variables de Producción:**
 
@@ -199,7 +219,7 @@ La Tabla \ref{tabla1} detalla las variables que integran la base de datos. A con
     \par
     \vspace{0.1cm}
 
--   **PERIODO**: Representa el período del año en que se midió el rendimiento (por ejemplo, si es temporada de siembra o cosecha). 
+-   **PERIODO**: Representa el período del año en que se midió el rendimiento (por ejemplo, si es temporada de siembra o cosecha).
 
 ### Relevancia y Usos
 
@@ -207,49 +227,24 @@ Esta base de datos es de gran importancia para diversos actores del sector agrí
 
 La base de datos también es útil para estudios relacionados con los **cambios climáticos** y cómo estos afectan los cultivos a lo largo de los años, así como para investigaciones sobre la eficiencia de los sistemas productivos y las prácticas agrícolas en las distintas regiones de Colombia.
 
-
-
-
-
-
-
-
 ## b) Selección de Variable Principal y Análisis Descriptivo
 
 ### Selección de la Variable Principal
 
 Para este análisis, se ha seleccionado la variable **RENDIMIENTO (t/ha)** como la variable de mayor importancia en la base de datos. Esta selección se fundamenta en las siguientes razones:
 
-- **Indicador clave de eficiencia**: El rendimiento por hectárea es la medida más importante para evaluar la eficiencia productiva de los cultivos.
-- **Comparabilidad**: Permite realizar comparaciones objetivas entre diferentes cultivos, regiones y períodos de tiempo.
-- **Relevancia económica**: Es fundamental para la toma de decisiones de inversión y políticas agrícolas.
-- **Indicador de sostenibilidad**: Refleja la capacidad de producción de la tierra y su uso eficiente.
+-   **Indicador clave de eficiencia**: El rendimiento por hectárea es la medida más importante para evaluar la eficiencia productiva de los cultivos.
+-   **Comparabilidad**: Permite realizar comparaciones objetivas entre diferentes cultivos, regiones y períodos de tiempo.
+-   **Relevancia económica**: Es fundamental para la toma de decisiones de inversión y políticas agrícolas.
+-   **Indicador de sostenibilidad**: Refleja la capacidad de producción de la tierra y su uso eficiente.
 
 ### Objetivo del Análisis
 
-
 **Objetivo General**: Caracterizar el comportamiento del rendimiento de cultivos (t/ha) en Colombia durante el período 2007-2018, identificando patrones, tendencias y variabilidad en la productividad agrícola a nivel nacional.
 
-**Objetivos Específicos**:
-1. Describir la distribución estadística del rendimiento de cultivos en Colombia.
-2. Identificar los cultivos con mayor y menor rendimiento promedio.
-3. Analizar la evolución temporal del rendimiento durante el período de estudio.
-4. Examinar las diferencias regionales en el rendimiento agrícola.
+**Objetivos Específicos**: 1. Describir la distribución estadística del rendimiento de cultivos en Colombia. 2. Identificar los cultivos con mayor y menor rendimiento promedio. 3. Analizar la evolución temporal del rendimiento durante el período de estudio. 4. Examinar las diferencias regionales en el rendimiento agrícola.
 
 ### Análisis Descriptivo del Rendimiento
-
-```{r}
-# Extraer los nombres de las variables de la base de datos
-variables1 <- names(datos)
-
-# Eliminar caracteres especiales incluyendo los acentos graves (`)`)
-variables_limpias <- gsub("`", "", variables1)
-
-# Reemplazar los nombres originales por los limpiados
-names(datos) <- variables_limpias
-
-```
-
 
 ```{r}
 # Usar comillas dobles para asegurar que el nombre se reconoce correctamente
@@ -262,7 +257,6 @@ datos_rendimiento <- datos %>%
 
 
 ```
-
 
 ```{r}
 # Calcular estadísticas descriptivas correctamente
@@ -289,16 +283,21 @@ estadisticas_rendimiento <- datos_rendimiento %>%
   )
 ```
 
-
 ```{r}
+colnames(estadisticas_rendimiento) <- c("N", "Media", "Mediana", "Desv.Est.", "Mínimo", "Máximo", "Q1", "Q3", "CV")
+
 # Mostrar tabla de estadísticas descriptivas
 kable(estadisticas_rendimiento, 
       caption = "\\label{tab:estadisticas} Estadísticas Descriptivas del Rendimiento (t/ha)",
       format = "latex") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = FALSE) %>%
-  column_spec(1:9, width = "1.8cm")
+                full_width = FALSE)
+
+
 ```
+
+Según los estadísticos de la Tabla \ref{tab:estadisticas}, el rendimiento promedio de los cultivos en Colombia es de `r estadisticas_rendimiento$Media` t/ha, con una mediana de `r estadisticas_rendimiento$Mediana` t/ha. La diferencia entre media y mediana, junto con un coeficiente de variación elevado (`r estadisticas_rendimiento$CV`\%), indica una fuerte dispersión y asimetría en los datos.
+\newpage
 
 ```{r, fig.cap="\\label{fig1}Histograma Rendimiento", fig.pos="H", fig.height=4, fig.width=5}
 # Histograma del rendimiento
@@ -314,7 +313,9 @@ ggplot(datos_rendimiento, aes(x =`Rendimiento
         plot.subtitle = element_text(hjust = 0.5))
 ```
 
-```{r, fig.cap="\\label{fig1}Boxplot rendimiento", fig.pos="H", fig.height=4, fig.width=5}
+La Figura \ref{fig1}(histograma) evidencia que la distribución del rendimiento está sesgada positivamente. La mayoría de los datos se concentran en valores bajos, mientras que existen pocos valores muy altos que funcionan como outliers.
+ 
+```{r, fig.cap="\\label{fig2}Histograma Rendimiento", fig.pos="H", fig.height=4, fig.width=5}
 # Boxplot del rendimiento
 ggplot(datos_rendimiento, aes(y = `Rendimiento
 (t/ha)`)) +
@@ -329,6 +330,11 @@ ggplot(datos_rendimiento, aes(y = `Rendimiento
         axis.ticks.x = element_blank()) +
   coord_flip()
 ```
+\newpage
+
+
+La Figura  \ref{box} refuerza esta observación mostrando una gran cantidad de datos atípicos por encima del rango intercuartílico, confirmando la presencia de rendimientos excepcionalmente altos en ciertos cultivos.
+
 
 ```{r}
 # Top 10 cultivos con mayor rendimiento promedio
@@ -350,8 +356,9 @@ kable(top_cultivos,
   kable_styling(latex_options = c("striped", "hold_position"),
                 full_width = FALSE)
 ```
+En cuanto a los cultivos más productivos, la Tabla \ref{tab:top-cultivos} y su gráfica asociada muestran que la **caña de azúcar** lidera con un rendimiento promedio de 117.30 t/ha, seguida por cultivos como **tomate**, **champiñón**, **piña** y **sábila**, todos con rendimientos notablemente superiores al promedio general.
 
-```{r}
+```{r, fig.cap="\\label{fig3}Histograma Rendimiento", fig.pos="H", fig.height=3, fig.width=7}
 # Gráfico de barras de los top 10 cultivos
 ggplot(top_cultivos, aes(x = reorder(CULTIVO, Rendimiento_Promedio), 
                          y = Rendimiento_Promedio)) +
@@ -365,3 +372,7 @@ ggplot(top_cultivos, aes(x = reorder(CULTIVO, Rendimiento_Promedio),
   theme(plot.title = element_text(hjust = 0.5),
         plot.subtitle = element_text(hjust = 0.5))
 ```
+
+Estos resultados de la Figura  \ref{fig3} permiten identificar cultivos estratégicos que, por su alto rendimiento, podrían ser priorizados en políticas de productividad agrícola o inversión técnica en regiones donde sean más comunes.
+
+

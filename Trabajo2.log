@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.6.4)  6 JUN 2025 12:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.6.4)  6 JUN 2025 13:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -453,11 +453,7 @@ File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 ) (c:/Users/Juan/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count334
-) (./Trabajo2.aux
-
-LaTeX Warning: Label `fig1' multiply defined.
-
-)
+) (./Trabajo2.aux)
 \openout1 = `Trabajo2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 104.
@@ -563,22 +559,22 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.202 
+l.201 
        [1
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 221.
+(Font)              <12> on input line 220.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 221.
+(Font)              <8> on input line 220.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 221.
+(Font)              <6> on input line 220.
 
-Overfull \hbox (20.01285pt too wide) in paragraph at lines 221--246
+Overfull \hbox (20.01285pt too wide) in paragraph at lines 220--245
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 259.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 257.
 (c:/Users/Juan/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
@@ -586,66 +582,53 @@ File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 [2]
 
 [3]
-Overfull \hbox (60.92395pt too wide) in paragraph at lines 452--452
- []|\T1/ppl/m/n/12 Desviacion_Estandar|
- []
-
-
-Overfull \hbox (29.73625pt too wide) in paragraph at lines 452--453
- []|\T1/ppl/m/n/12 Coef_Variacion|
- []
-
-
-Overfull \hbox (128.55685pt too wide) in paragraph at lines 450--457
- [][] 
- []
-
-<Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf, id=35, 361.35pt x 289.08pt>
-File: Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
-<use Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 461.
-(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
-<Trabajo2_files/figure-latex/unnamed-chunk-9-1.pdf, id=36, 361.35pt x 289.08pt>
-File: Trabajo2_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
-<use Trabajo2_files/figure-latex/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: Trabajo2_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 467.
-(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Trabajo2_files/figure-latex/unnamed-chunk-11-1.pdf, id=37, 469.755pt x 325.215pt>
-File: Trabajo2_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use Trabajo2_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: Trabajo2_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 502.
-(pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
-
 
 [4]
+<Trabajo2_files/figure-latex/unnamed-chunk-7-1.pdf, id=45, 361.35pt x 289.08pt>
+File: Trabajo2_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use Trabajo2_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: Trabajo2_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 464.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
+<Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf, id=47, 361.35pt x 289.08pt>
+File: Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 473.
+(pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
 
-[5 <./Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf> <./Trabajo2_files/figure-latex/unnamed-chunk-9-1.pdf>]
 
-[6 <./Trabajo2_files/figure-latex/unnamed-chunk-11-1.pdf>] (./Trabajo2.aux)
+[5 <./Trabajo2_files/figure-latex/unnamed-chunk-7-1.pdf> <./Trabajo2_files/figure-latex/unnamed-chunk-8-1.pdf>]
+
+LaTeX Warning: Reference `box' on page 6 undefined on input line 476.
+
+<Trabajo2_files/figure-latex/unnamed-chunk-10-1.pdf, id=71, 505.89pt x 216.81pt>
+File: Trabajo2_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
+<use Trabajo2_files/figure-latex/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: Trabajo2_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 521.
+(pdftex.def)             Requested size: 443.58667pt x 190.10857pt.
+
+
+[6 <./Trabajo2_files/figure-latex/unnamed-chunk-10-1.pdf>] (./Trabajo2.aux)
  ***********
 LaTeX2e <2025-06-01>
 L3 programming layer <2025-05-26>
  ***********
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 12954 strings out of 469873
- 202395 string characters out of 5482946
- 615366 words of memory out of 5000000
- 40986 multiletter control sequences out of 15000+600000
+ 12956 strings out of 469873
+ 202405 string characters out of 5482946
+ 614376 words of memory out of 5000000
+ 40988 multiletter control sequences out of 15000+600000
  666172 words of font info for 93 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,11n,93p,754b,510s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,11n,93p,754b,514s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/Juan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/Users/Juan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on Trabajo2.pdf (7 pages, 211548 bytes).
+Output written on Trabajo2.pdf (7 pages, 214119 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 108 compressed objects within 2 object streams
+ 135 PDF objects out of 1000 (max. 8388607)
+ 112 compressed objects within 2 object streams
  25 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 
