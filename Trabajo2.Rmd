@@ -1,0 +1,31 @@
+---
+title: |
+       | Nombre del trabajo
+       | 
+       | Nombre integrante 1
+       | Nombre integrande 2
+       |
+documenclass: report
+geometry: "left=3cm,right=3cm,top=2cm, bottom=2cm"
+header-includes:
+- \usepackage{float}
+- \usepackage{titling}
+- \pretitle{\centering \Huge}
+- \posttitle{\vskip 2cm \begin{center}\includegraphics[width=3cm]{descarga.png}\end{center}}
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = F, message = F)
+```
+\fontfamily{cmr} # cambio de tipo de letra
+#https://es.overleaf.com/learn/latex/Font_typefaces
+\fontsize{15}{10}  ##15 tamaño de letra 10 tipo de espaciado
+\selectfont
+
+# ensayo
+ensayo 
+
+
+an
