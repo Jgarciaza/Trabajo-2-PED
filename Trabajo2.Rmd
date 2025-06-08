@@ -1,33 +1,79 @@
 ---
-title: |
-       | Trabajo 2: Procesamiento estadístico de datos 
-       | 
-       |
-       | Juan David Garcia Zapata 
-       | CC: 1001660790
-       |
-       |
-       | Julián Castaño Pineda
-       | CC: 1000755372
-       |
-       |
-       | Mauricio Alejandro Mazo Lopera 
-documentclass: report
-geometry: "left=3cm,right=3cm,top=2cm, bottom=2cm"
-header-includes:
+header-evals:
   - \usepackage{float}
   - \usepackage{titling}
   - \usepackage{palatino}  % Usa la fuente Palatino
   - \pretitle{\centering \Huge} 
   - \posttitle{\vskip 2cm \begin{center}\includegraphics[width=7cm]{descarga.png}\end{center}}
+  - \usepackage[spanish,es-tabla]{babel}
+  - \usepackage{times}
+  - \usepackage{amsmath}
+  - \usepackage{tikz}
+  - \usepackage[utf8]{inputenc}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{amsthm, amsfonts}
+  - \usepackage{graphicx}
+  - \usepackage{mathtools}
+  - \usepackage{ amssymb }
+  - \usepackage{parskip}
+  - \usepackage{booktabs}
+  - \usepackage{dsfont}
+  - \usepackage{ upgreek }
+  - \usepackage{textcomp}
+  - \usepackage{epigraph}
+  - \usepackage{pdfpages}
+  - \usepackage{enumerate}
+  - \usepackage{tcolorbox}
+  - \usepackage{ragged2e}
+  - \usepackage{caption}
+  - \usepackage{subcaption}
+  - \usepackage{cancel}
+  - \usepackage[colorinlistoftodos]{todonotes}
+  - \usepackage{framed, color}
+  - \usepackage{enumitem}
+  - \definecolor{shadecolor}{rgb}{1,0.8,0.3}
+  - \usepackage[colorinlistoftodos]{todonotes}
+  - \usepackage{longtable}
+  - \usepackage{multirow}
+  - \usepackage{subfigure}
 output: pdf_document
 fontsize: 12pt
 mainfont: Palatino  % Si usas XeLaTeX o LuaLaTeX, puedes especificar la fuente aquí
+documentclass: report
+geometry: "left=3cm,right=3cm,top=2cm, bottom=2cm"
+encoding: UTF-8
+language: "es"
+lang: es-ES
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning=FALSE)
 ```
+
+
+\begin{titlepage}
+  \centering
+  {\includegraphics[width=1\textwidth]{logoUNAL.png}\par}
+  \vspace{1cm}
+  \setlength{\parskip}{10pt}
+  {\bfseries\LARGE Facultad de Ciencias exactas \par}
+  \vspace{2cm}
+  {\scshape\Huge Procesamiento estadístico de datos \par}
+  \vspace{2cm}
+  {\itshape\Large Trabajo 2 \par}
+  \vspace{1cm}
+  {\Large Autores: \par}
+  {\Large  Juan David Garcia Zapata:  CC 1001660790 \par
+           Julián Castaño Pineda: CC 1000755372 \par}
+  \vfill
+  {\Large \today \par}
+\end{titlepage}
+
+
+
 
 \fontsize{11}{10}  
 \selectfont
@@ -82,7 +128,7 @@ Finalmente, se deben analizar las covariables seleccionadas mediante tablas, res
 
 ```{r}
 # lectura de la base de datos
-datos<- read_csv("C:\\Users\\Juan\\Documents\\Universidad\\Semeste 11\\PED\\Trabajo 2\\Trabajo-2-PED\\Evaluaciones_Agropecuarias_Municipales_EVA_20250606.csv")
+datos<- read_csv("Evaluaciones_Agropecuarias_Municipales_EVA_20250607.csv")
 ```
 
 ## a) Contextualización de la Base de Datos
@@ -96,6 +142,7 @@ El sector agrícola es un componente esencial de la economía colombiana, y el r
 ### Dimensiones de la Base de Datos
 
 La base de datos consta de **Número de filas**: `r nrow(datos)` y **Número de columnas**: `r ncol(datos)`, lo que implica que contiene una cantidad significativa de registros (uno por cada combinación de región y cultivo) a lo largo de los años estudiados. Esto ofrece un panorama muy detallado de cómo ha evolucionado el rendimiento de los cultivos en distintas regiones del país. La cantidad de variables (columnas) presentes en la base de datos también es considerable, lo que nos permite realizar análisis multifacéticos, considerando no solo los rendimientos, sino también factores relacionados, como la región geográfica, el tipo de cultivo, las variaciones estacionales, y más.
+
 
 ```{r}
 # Extraer nombres de variables
@@ -252,10 +299,6 @@ datos_rendimiento <- datos %>%
   filter(!is.na(datos[[ "Rendimiento\n(t/ha)" ]]), 
          datos[[ "Rendimiento\n(t/ha)" ]] > 0,
          datos[[ "Rendimiento\n(t/ha)" ]] < 1000)
-
-
-
-
 ```
 
 ```{r}
