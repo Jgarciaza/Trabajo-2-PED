@@ -36,6 +36,7 @@ header-evals:
   - \usepackage{longtable}
   - \usepackage{multirow}
   - \usepackage{subfigure}
+  - \usepackage{tabularx}
 output: pdf_document
 fontsize: 12pt
 mainfont: Palatino  % Si usas XeLaTeX o LuaLaTeX, puedes especificar la fuente aquí
@@ -71,12 +72,6 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning=FALSE)
   \vfill
   {\Large \today \par}
 \end{titlepage}
-
-
-
-
-\fontsize{11}{10}  
-\selectfont
 
 \newpage
 
@@ -129,6 +124,7 @@ Finalmente, se deben analizar las covariables seleccionadas mediante tablas, res
 ```{r}
 # lectura de la base de datos
 datos<- read_csv("Evaluaciones_Agropecuarias_Municipales_EVA_20250607.csv")
+
 ```
 
 ## a) Contextualización de la Base de Datos
@@ -137,7 +133,7 @@ La base de datos "Rendimiento de Cultivos en Colombia por Año" se encuentra dis
 
 ### Contexto
 
-El sector agrícola es un componente esencial de la economía colombiana, y el rendimiento de los cultivos es un indicador clave para evaluar la productividad de este sector. Los datos recopilados en esta base de datos provienen de fuentes oficiales del Departamento Administrativo Nacional de Estadística (DANE) y proporcionan una visión integral de las prácticas agrícolas en el país. Esta base cubre un amplio espectro de cultivos, que incluye tanto productos tradicionales como otros más recientes, lo que permite a los investigadores y tomadores de decisiones analizar las tendencias y variaciones en el rendimiento a lo largo del tiempo.
+El sector agrícola es un componente esencial de la economía colombiana, y el rendimiento de los cultivos es un indicador clave para evaluar la productividad de este sector. Los datos recopilados en esta base de datos provienen de fuentes oficiales del Ministerio de Agricultura y Desarrollo Rural y proporcionan una visión integral de las prácticas agrícolas en el país. Esta base cubre un amplio espectro de cultivos, que incluye tanto productos tradicionales como otros más recientes, lo que permite a los investigadores y tomadores de decisiones analizar las tendencias y variaciones en el rendimiento a lo largo del tiempo.
 
 ### Dimensiones de la Base de Datos
 
@@ -294,11 +290,13 @@ Para este análisis, se ha seleccionado la variable **RENDIMIENTO (t/ha)** como 
 ### Análisis Descriptivo del Rendimiento
 
 ```{r}
+datos<- datos %>% clean_names()
+
 # Usar comillas dobles para asegurar que el nombre se reconoce correctamente
 datos_rendimiento <- datos %>%
-  filter(!is.na(datos[[ "Rendimiento\n(t/ha)" ]]), 
-         datos[[ "Rendimiento\n(t/ha)" ]] > 0,
-         datos[[ "Rendimiento\n(t/ha)" ]] < 1000)
+  filter(!is.na(rendimiento_t_ha), 
+         rendimiento_t_ha > 0,
+         rendimiento_t_ha< 1000)
 ```
 
 ```{r}
@@ -306,23 +304,14 @@ datos_rendimiento <- datos %>%
 estadisticas_rendimiento <- datos_rendimiento %>%
   summarise(
     N = n(),
-    Media = round(mean(`Rendimiento
-(t/ha)`, na.rm = TRUE), 2),
-    Mediana = round(median(`Rendimiento
-(t/ha)`, na.rm = TRUE), 2),
-    Desviacion_Estandar = round(sd(`Rendimiento
-(t/ha)`, na.rm = TRUE), 2),
-    Minimo = round(min(`Rendimiento
-(t/ha)`, na.rm = TRUE), 2),
-    Maximo = round(max(`Rendimiento
-(t/ha)`, na.rm = TRUE), 2),
-    Q1 = round(quantile(`Rendimiento
-(t/ha)`, 0.25, na.rm = TRUE), 2),
-    Q3 = round(quantile(`Rendimiento
-(t/ha)`, 0.75, na.rm = TRUE), 2),
-    Coef_Variacion = round((sd(`Rendimiento
-(t/ha)`, na.rm = TRUE)/mean(`Rendimiento
-(t/ha)`, na.rm = TRUE)) * 100, 2)
+    Media = round(mean(rendimiento_t_ha, na.rm = TRUE), 2),
+    Mediana = round(median(rendimiento_t_ha, na.rm = TRUE), 2),
+    Desviacion_Estandar = round(sd(rendimiento_t_ha, na.rm = TRUE), 2),
+    Minimo = round(min(rendimiento_t_ha, na.rm = TRUE), 2),
+    Maximo = round(max(rendimiento_t_ha, na.rm = TRUE), 2),
+    Q1 = round(quantile(rendimiento_t_ha, 0.25, na.rm = TRUE), 2),
+    Q3 = round(quantile(rendimiento_t_ha, 0.75, na.rm = TRUE), 2),
+    Coef_Variacion = round((sd(rendimiento_t_ha, na.rm = TRUE)/mean(rendimiento_t_ha, na.rm = TRUE)) * 100, 2)
   )
 ```
 
@@ -340,12 +329,11 @@ kable(estadisticas_rendimiento,
 ```
 
 Según los estadísticos de la Tabla \ref{tab:estadisticas}, el rendimiento promedio de los cultivos en Colombia es de `r estadisticas_rendimiento$Media` t/ha, con una mediana de `r estadisticas_rendimiento$Mediana` t/ha. La diferencia entre media y mediana, junto con un coeficiente de variación elevado (`r estadisticas_rendimiento$CV`\%), indica una fuerte dispersión y asimetría en los datos.
-\newpage
 
-```{r, fig.cap="\\label{fig1}Histograma Rendimiento", fig.pos="H", fig.height=4, fig.width=5}
+
+```{r, fig.cap="\\label{fig1}Histograma Rendimiento", fig.pos="H", fig.height=3, fig.width=6}
 # Histograma del rendimiento
-ggplot(datos_rendimiento, aes(x =`Rendimiento
-(t/ha)`)) +
+ggplot(datos_rendimiento, aes(x =rendimiento_t_ha)) +
   geom_histogram(bins = 30, fill = "steelblue", alpha = 0.7, color = "black") +
   labs(title = "Distribución del Rendimiento de Cultivos",
        subtitle = "Colombia 2007-2018",
@@ -357,11 +345,10 @@ ggplot(datos_rendimiento, aes(x =`Rendimiento
 ```
 
 La Figura \ref{fig1}(histograma) evidencia que la distribución del rendimiento está sesgada positivamente. La mayoría de los datos se concentran en valores bajos, mientras que existen pocos valores muy altos que funcionan como outliers.
- 
-```{r, fig.cap="\\label{fig2}Histograma Rendimiento", fig.pos="H", fig.height=4, fig.width=5}
+
+```{r, fig.cap="\\label{fig2}Boxplot de rendimientos", fig.pos="H", fig.height=2, fig.width=6}
 # Boxplot del rendimiento
-ggplot(datos_rendimiento, aes(y = `Rendimiento
-(t/ha)`)) +
+ggplot(datos_rendimiento, aes(y = rendimiento_t_ha)) +
   geom_boxplot(fill = "lightblue", alpha = 0.7) +
   labs(title = "Diagrama de Caja del Rendimiento de Cultivos",
        subtitle = "Colombia 2007-2018",
@@ -373,19 +360,15 @@ ggplot(datos_rendimiento, aes(y = `Rendimiento
         axis.ticks.x = element_blank()) +
   coord_flip()
 ```
-\newpage
 
-
-La Figura  \ref{box} refuerza esta observación mostrando una gran cantidad de datos atípicos por encima del rango intercuartílico, confirmando la presencia de rendimientos excepcionalmente altos en ciertos cultivos.
-
+La Figura \ref{fig2} refuerza esta observación mostrando una gran cantidad de datos atípicos por encima del rango intercuartílico, confirmando la presencia de rendimientos excepcionalmente altos en ciertos cultivos.
 
 ```{r}
 # Top 10 cultivos con mayor rendimiento promedio
 top_cultivos <- datos_rendimiento %>%
-  group_by(CULTIVO) %>%
+  group_by(cultivo) %>%
   summarise(
-    Rendimiento_Promedio = round(mean(`Rendimiento
-(t/ha)`, na.rm = TRUE), 2),
+    Rendimiento_Promedio = round(mean(rendimiento_t_ha, na.rm = TRUE), 2),
     N_observaciones = n(),
     .groups = 'drop'
   ) %>%
@@ -401,9 +384,9 @@ kable(top_cultivos,
 ```
 En cuanto a los cultivos más productivos, la Tabla \ref{tab:top-cultivos} y su gráfica asociada muestran que la **caña de azúcar** lidera con un rendimiento promedio de 117.30 t/ha, seguida por cultivos como **tomate**, **champiñón**, **piña** y **sábila**, todos con rendimientos notablemente superiores al promedio general.
 
-```{r, fig.cap="\\label{fig3}Histograma Rendimiento", fig.pos="H", fig.height=3, fig.width=7}
+```{r, fig.cap="\\label{fig3}Cultivos con mayor rendimiento", fig.height=3, fig.width=6}
 # Gráfico de barras de los top 10 cultivos
-ggplot(top_cultivos, aes(x = reorder(CULTIVO, Rendimiento_Promedio), 
+ggplot(top_cultivos, aes(x = reorder(cultivo, Rendimiento_Promedio), 
                          y = Rendimiento_Promedio)) +
   geom_col(fill = "darkgreen", alpha = 0.7) +
   coord_flip() +
@@ -416,6 +399,172 @@ ggplot(top_cultivos, aes(x = reorder(CULTIVO, Rendimiento_Promedio),
         plot.subtitle = element_text(hjust = 0.5))
 ```
 
-Estos resultados de la Figura  \ref{fig3} permiten identificar cultivos estratégicos que, por su alto rendimiento, podrían ser priorizados en políticas de productividad agrícola o inversión técnica en regiones donde sean más comunes.
+Estos resultados de la Figura \ref{fig3} permiten identificar cultivos estratégicos que, por su alto rendimiento, podrían ser priorizados en políticas de productividad agrícola o inversión técnica en regiones donde sean más comunes.
 
+
+
+
+## C. Identificación de Covariables
+
+Para profundizar en los factores que pueden influir en el **Rendimiento (t/ha)**, seleccionamos las siguientes covariables:
+
+- **Numéricas**  
+  - `area_sembrada_ha`  
+  - `produccion_t`  
+- **Categóricas**  
+  - `grupo_de_cultivo`  
+  - `ciclo_de_cultivo`  
+  - `año` (Categórico ordinal para efectos del análisis)
+
+En este sentido, centramos el **objetivo** en valuar la relación entre el rendimiento de los cultivos y factores relacionados con la superficie cultivada, el tipo de cultivo y el ciclo agrícola. Reviasar la Tabla \ref{tab:covariables}
+
+
+
+```{r seleccion-covariables}
+# Creamos un data frame con la variable respuesta y las covariables seleccionadas
+covariables <- datos_rendimiento %>%
+  select(rendimiento_t_ha,
+         area_sembrada_ha,
+         produccion_t,
+         grupo_de_cultivo,
+         ciclo_de_cultivo,
+         ano)
+
+kable(names(covariables), 
+      caption = "\\label{tab:covariables} covariables seleccionadas",
+      format = "latex") %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = FALSE)
+
+
+```
+
+## D. Análisis de Covariables
+
+### Covariables Numéricas
+
+#### Correlaciones con Rendimiento
+
+```{r}
+correlaciones <- covariables %>%
+  summarise(
+    Cor_AreaSembrada = round(cor(area_sembrada_ha, rendimiento_t_ha, use = "complete.obs"), 2),
+    Cor_AreaCosechada = round(cor(produccion_t, rendimiento_t_ha, use = "complete.obs"), 2)
+  )
+
+kable(correlaciones,
+      caption = "\\label{tab:correlaciones} Correlación entre Rendimiento y Superficies",
+      format = "latex") %>%
+  kable_styling(latex_options = c("striped","hold_position"), full_width = FALSE)
+
+```
+
+
+```{r, fig.cap="\\label{fig4}Matriz de correlación", fig.height=3, fig.width=6}
+# Selecciona sólo variables numéricas
+datos_num <- covariables %>%
+  select(where(is.numeric))
+
+corr_mat <- cor(datos_num,
+                use = "pairwise.complete.obs",
+                method = "pearson")  # también "spearman" si prefieres
+
+library(ggcorrplot)
+
+ggcorrplot(corr_mat,
+           hc.order = TRUE,     # orden jerárquico
+           type     = "lower",
+           lab      = TRUE)     # mostrar valores
+```
+
+En la Tabla \ref{tab:correlaciones} y la Figura \ref{fig4} se muestra las correlaciones de Rendimiento con Área Sembrada y la producción. Se observa una correlación baja positiva con el área sembrada y con la producción, si bien estas correlaciones son bajas, podría indicar un leve comportamiento de economía de escala en algunos cultivos.
+
+### Covariables Categóricas
+
+#### Rendimiento por Grupo de Cultivo
+```{r}
+rend_grupo <- covariables %>%
+  group_by(grupo_de_cultivo) %>%
+  summarise(
+    Media_Rend = round(mean(rendimiento_t_ha, na.rm = TRUE), 2),
+    Mediana_Rend = round(median(rendimiento_t_ha, na.rm = TRUE), 2),
+    N = n()
+  ) %>%
+  arrange(desc(Media_Rend))
+
+rend_grupo %>%
+  kable(
+    format   = "latex",
+    booktabs = TRUE,
+    caption  = "\\label{tab:rend-grupo}Rendimiento por Grupo de Cultivo"
+  ) %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position", "scale_down"),
+    full_width    = FALSE
+  ) %>%
+  column_spec(1, width = "6cm")  # fija la primera columna en 6 cm y activa wrap
+
+```
+
+En la Tabla \ref{tab:rend-grupo} se destacan las hortalizas, frutales y tubérculos y plátanos como los grupos con mayor eficiencia en rendimiento por hectárea, presentando medias de 21.21 t/ha, 11.76 t/ha y 10.41 t/ha respectivamente. Además, la brecha notable entre la media y la mediana —por ejemplo, en hongos (25.31 vs. 4.00) y hortalizas (21.21 vs. 15.00)— indica la presencia de datos extremos que elevan el promedio, posiblemente ocasionados por parcelas con rendimiento excepcional o variabilidad en las condiciones productivas.
+
+#### Rendimiento por Ciclo de Cultivo
+
+```{r, fig.cap="\\label{fig:density_rendiminetos_por_ciclo} Rendimientos por ciclo de cultivo", fig.height=3, fig.width=6}
+
+ggplot(covariables, aes(x = rendimiento_t_ha, fill = ciclo_de_cultivo, color = ciclo_de_cultivo)) +
+  geom_density(alpha = 0.4, size = 1) +
+  labs(x = "Rendimiento (t/ha)",
+       y = "Densidad",
+       fill = "Ciclo de Cultivo",
+       color = "Ciclo de Cultivo",
+       title = "Densidades Superpuestas: Rendimiento por Ciclo de Cultivo") +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title       = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "top",
+    panel.grid.major = element_line(color = "gray90"),
+    panel.grid.minor = element_blank()
+  )+
+  xlim(0,50)
+```
+
+En la Figura \ref{fig:density_rendiminetos_por_ciclo} se observa que el ciclo ANUAL presenta la curva de densidad desplazada hacia valores de rendimiento más altos, seguido por el ciclo PERMANENTE y luego TRANSITORIO. Esto indica que los cultivos de ciclo anual tienden a alcanzar mayores rendimientos, posiblemente debido a prácticas agrícolas intensivas y optimizadas para un solo ciclo productivo, mientras que los ciclos permanentes y transitorios enfrentan límites más marcados por su manejo continuo o estacional.
+
+#### Rendimiento por Año
+
+```{r rendimiento-periodo-tiempo, fig.cap="\\label{fig:line-periodo}Serie de Tiempo: Rendimiento Promedio por Periodo", fig.pos="H", fig.width=6, fig.height=3}
+# Extraer sólo el año de 'periodo'
+rend_periodo <- covariables %>%
+  group_by(ano) %>%
+  summarise(Media_Rend = round(mean(rendimiento_t_ha, na.rm = TRUE), 2)) %>%
+  arrange(ano)
+
+# Gráfico de serie de tiempo en azul para años
+ggplot(rend_periodo, aes(x = ano, y = Media_Rend, group = 1)) +
+  geom_line(color = "steelblue", size = 1.2) +
+  geom_point(color = "steelblue", size = 2) +
+  # — aquí definimos un break por cada año —
+  scale_x_continuous(
+    breaks = seq(
+      from = min(rend_periodo$ano, na.rm = TRUE),
+      to   = max(rend_periodo$ano, na.rm = TRUE),
+      by   = 1
+    )
+  ) +
+  labs(
+    x     = "Año",
+    y     = "Rendimiento Promedio (t/ha)",
+    title = "Serie de Tiempo: Rendimiento Promedio por Año"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title  = element_text(hjust = 0.5, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_line(color = "gray90"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+En la Figura \ref{fig:line-periodo} se observa una tendencia creciente de los rendimientos de los cultivos al pasar del tiempo, lo que indica un refinamiento en las capacidades productivas agrícolas y cambios tecnológicos que mejoran la eficiencia de la tierra.
 
